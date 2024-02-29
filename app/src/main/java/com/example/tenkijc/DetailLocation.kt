@@ -26,6 +26,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -36,6 +37,8 @@ fun WeatherInfo(
     currentTemperature: String,
     currentWeather: String,
     currentHumidity: String,
+    currentWind: String,
+    currentRain: String,
     windInfo: String,
     nextDaysTemperature: String,
     nextDaysRain: String,
@@ -68,66 +71,99 @@ fun WeatherInfo(
         Spacer(modifier = Modifier.size(16.dp))
 
         // Informasi Cuaca Lainnya
-        Image(
-            painter = painterResource(R.drawable.wind), // Replace 'ic_wind' with the actual file name
-            contentDescription = null,
-            modifier = Modifier.size(24.dp),
-            colorFilter = ColorFilter.tint(Color(0xFFF3F3F3))
-        )
-        Spacer(modifier = Modifier.size(4.dp))
-        Text(
-            text = windInfo,
-            color = Color(0xFFF3F3F3),
-            fontFamily = FontFamily.Default,
-            fontSize = 16.sp,
-        )
-
-        Spacer(modifier = Modifier.size(8.dp))
-
-        Image(
-            painter = painterResource(R.drawable.humidity), // Replace 'ic_humidity' with the actual file name
-            contentDescription = null,
-            modifier = Modifier.size(24.dp),
-            colorFilter = ColorFilter.tint(Color(0xFFF3F3F3))
-        )
-        Spacer(modifier = Modifier.size(4.dp))
-        Text(
-            text = currentHumidity,
-            color = Color(0xFFF3F3F3),
-            fontFamily = FontFamily.Default,
-            fontSize = 16.sp,
-        )
-
-        Spacer(modifier = Modifier.size(8.dp))
-
-        Image(
-            painter = painterResource(R.drawable.rain), // Replace 'ic_cloud' with the actual file name
-            contentDescription = null,
-            modifier = Modifier.size(24.dp),
-            colorFilter = ColorFilter.tint(Color(0xFFF3F3F3))
-        )
-        Spacer(modifier = Modifier.size(4.dp))
-        Text(
-            text = nextDaysRain,
-            color = Color(0xFFF3F3F3),
-            fontFamily = FontFamily.Default,
-            fontSize = 16.sp,
-        )
-
-        Spacer(modifier = Modifier.size(8.dp))
-
-        Box(
-            modifier = Modifier
-                .padding(start = 16.dp, top = 8.dp)
-                .background(color = Color.Gray),
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(
-                text = nextDaysWind,
-                fontSize = 16.sp,
-                color = Color.White,
-                modifier = Modifier.padding(16.dp)
-            )
+            // Wind Section
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(4.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Image(
+                    painter = painterResource(R.drawable.wind), // Replace 'ic_cloud' with the actual file name
+                    contentDescription = null,
+                    modifier = Modifier.size(24.dp),
+                )
+                Text(
+                    text = currentWind,
+                    color = Color(0xFFF3F3F3),
+                    fontFamily = FontFamily.Default,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 16.sp,
+                )
+                Text(
+                    text = "Wind",
+                    color = Color(0xFFF3F3F3),
+                    fontFamily = FontFamily.Default,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 16.sp,
+                )
+            }
+
+            // Humidity Section
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(4.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Image(
+                    painter = painterResource(R.drawable.humidity), // Replace 'ic_cloud' with the actual file name
+                    contentDescription = null,
+                    modifier = Modifier.size(24.dp),
+                )
+                Text(
+                    text = currentHumidity,
+                    color = Color(0xFFF3F3F3),
+                    fontFamily = FontFamily.Default,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 16.sp,
+                )
+                Text(
+                    text = "Humidity",
+                    color = Color(0xFFF3F3F3),
+                    fontFamily = FontFamily.Default,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 16.sp,
+                )
+            }
+
+            // Rain Section
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(4.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Image(
+                    painter = painterResource(R.drawable.rain), // Replace 'ic_cloud' with the actual file name
+                    contentDescription = null,
+                    modifier = Modifier.size(24.dp),
+                )
+                Text(
+                    text = currentRain,
+                    color = Color(0xFFF3F3F3),
+                    fontFamily = FontFamily.Default,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 16.sp,
+                )
+                Text(
+                    text = "Rain",
+                    color = Color(0xFFF3F3F3),
+                    fontFamily = FontFamily.Default,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 16.sp,
+                )
+            }
         }
+
+
+        Spacer(modifier = Modifier.size(8.dp))
+
+
     }
 }
 
@@ -161,6 +197,8 @@ fun WeatherInfoScreen() {
                     text = "$location",
                     fontSize = 20.sp,
                     color = Color(0xFFF3F3F3),
+                    textAlign = TextAlign.Center,
+                    fontWeight = FontWeight.Bold,
                     modifier = Modifier
                         .weight(1f)
                         .align(Alignment.CenterVertically)
@@ -173,6 +211,8 @@ fun WeatherInfoScreen() {
                 currentTemperature = "20",
                 currentWeather = "Thunderstorm",
                 currentHumidity = "98%",
+                currentWind= "10 m/s",
+                currentRain= "100%",
                 windInfo = "10 m/s",
                 nextDaysTemperature = "Wednesday 18°",
                 nextDaysRain = "100%",
